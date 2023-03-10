@@ -1,0 +1,17 @@
+spring:
+  mvc:
+    view:
+      prefix: /WEB-INF/jsp/
+      suffix: .jsp
+    
+  datasource:
+    username: test_user
+    password: test_user12!
+    mapper-locations: classpath:/mapper/**/*.xml
+    jdbc-url: jdbc:mysql://192.168.0.152:3306/edu?serverTimezone=UTC&allowPublicKeyRetrieval=true&useSSL=false
+    driver: com.mysql.cj.jdbc.Driver
+    
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+  config-location: classpath:/mybatis/mybatis-config.xml

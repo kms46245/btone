@@ -1,0 +1,372 @@
+@charset "utf-8";
+
+html, body {
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	font-family: 'D2Coding';
+	font-size: 13px;
+	color: #000000;
+	overflow: hidden;
+}
+
+.container {
+	width: 100%;
+	height: 100%;
+	padding: 0px;
+}
+/* tabs -------------------------*/
+.ui-widget-content {
+	border: none;
+}
+
+.ui-tabs {
+	position: relative;
+	padding: 0;
+}
+
+.ui-tabs .ui-tabs-nav {
+	margin: 0;
+	padding: 0;
+}
+
+.ui-tabs .ui-tabs-nav li {
+	list-style: none;
+	display: inline-block;
+	float: left;
+	position: relative;
+	top: 0;
+	margin: 0 5px 0 0;
+	padding: 0;
+	background: #4A545F;
+	border-top: 1px solid #4A545F;
+}
+
+.ui-tabs .ui-tabs-nav .ui-tabs-anchor {
+	text-align: center;
+	float: center;
+	padding: 0 15 0 15;
+	line-height: 25px;
+	width: 60px;
+	text-decoration: none;
+	font-family: 'D2Coding';
+	font-size: 13px;
+	font-weight: normal;
+	color: #ffffff;
+}
+
+.ui-tabs .ui-tabs-nav li.ui-tabs-active {
+	margin-left: 0px;
+	margin-bottom: 0px;
+	padding-bottom: 0px;
+	border: none;
+	border-bottom: none;
+	z-index: 9999;
+	background: #00A2E8;
+	border-top: 1px solid #00A2E8;
+}
+
+.ui-state-active a:visited {
+	color: #ffffff;
+	text-decoration: none;
+}
+
+.ui-tabs .ui-tabs-nav li.ui-tabs-active .ui-tabs-anchor, .ui-tabs .ui-tabs-nav li.ui-state-disabled .ui-tabs-anchor,
+	.ui-tabs .ui-tabs-nav li.ui-tabs-loading .ui-tabs-anchor {
+	cursor: text;
+}
+
+.ui-tabs-collapsible .ui-tabs-nav li.ui-tabs-active .ui-tabs-anchor {
+	cursor: pointer;
+}
+
+.ui-tabs .ui-tabs-panel {
+	display: block;
+	border-width: 0;
+	padding: .3em 0;
+	background: none;
+}
+
+.ui-tooltip {
+	padding: 8px;
+	position: absolute;
+	z-index: 9999;
+	max-width: 300px;
+	-webkit-box-shadow: 0 0 5px #aaa;
+	box-shadow: 0 0 5px #aaa;
+}
+
+/* jquery ui dialog ---------------------------------------------- */
+.ui-dialog {
+	border: 1px solid #2E3742;
+	z-index: 999999999;
+}
+
+.ui-dialog .ui-dialog-titlebar {
+	background-color: #4A545F;
+	color: #FFFFFF;
+}
+
+/* div ------------------------------- */
+.header {
+	padding: 5px;
+	background-color: #2E3742;
+	color: #FFFFFF;
+}
+
+.content {
+	padding: 10px;
+}
+
+.layout0 {
+	padding-top: 0px;
+	padding-bottom: 0px;
+}
+
+.layout {
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+
+.layout_scroll {
+	padding-top: 5px;
+	padding-bottom: 5px;
+	overflow: y;
+}
+
+.left {
+	width: 550px;
+	height: calc(100vh - 100px);
+	padding: 10px;
+	float: left;
+	border: 1px solid #bcbcbc;
+	border-radius: 3px;
+}
+
+.main {
+	width: calc(100vw - 630px);
+	height: calc(100vh - 100px);
+	padding: 10px;
+	float: right;
+	border: 1px solid #bcbcbc;
+	border-radius: 3px;
+}
+
+.input {
+	width: calc(100vw - 630px);
+	height: calc(100vh - 230px);
+	overflow-x: hidden;
+	overflow-wrap: normal;
+}
+
+.output {
+	width: calc(100vw - 630px);
+	height: calc(( 100vh/ 2)- 110px);
+	overflow-x: hidden;
+	overflow-wrap: normal;
+}
+
+.input2 {
+	width: calc(100vw - 20px);
+	height: calc(( 100vh/ 2)- 70px);
+	margin-bottom: 20px;
+	overflow-x: hidden;
+	overflow-wrap: normal;
+}
+
+.output2 {
+	width: calc(100vw - 20px);
+	height: calc(( 100vh/ 2)- 70px);
+	overflow-x: hidden;
+	overflow-wrap: normal;
+}
+
+.input3 {
+	width: calc(100vw - 20px);
+	height: calc(100vh - 170px);
+	margin-bottom: 20px;
+	overflow-x: hidden;
+	overflow-wrap: normal;
+}
+
+.input5 {
+	width: calc(100vw - 630px);
+	height: calc(100vh - 110px);
+	overflow-x: hidden;
+	overflow-wrap: normal;
+}
+
+.input100 {
+	width: calc(100vw - 30px);
+	height: calc(100vh - 230px);
+	overflow-x: hidden;
+	overflow-wrap: normal;
+}
+
+/* ------------------------------------------------------------------*/
+/* table grid */
+.fixedTable {
+	width: 100%;
+	position: relative;
+	padding-top: 27px;
+	border-top: 1px solid #999999;
+}
+
+.fixedBox {
+	height: calc(100vh - 170px);
+	overflow: y;
+	overflow-x: hidden;
+}
+
+.fixedTable table {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+.fixedTable thead {
+	position: absolute;
+	top: 0;
+}
+
+.fixedTable th {
+	text-align: center;
+	padding: 5px;
+	background-color: #F8F8F8;
+	border-bottom: 1px solid #ddd;
+}
+
+.fixedTable tr {
+	width: 100%;
+	display: inline-table;
+	table-layout: fixed;
+}
+
+.fixedTable td {
+	padding: 5px;
+	border-bottom: 1px solid #ddd;
+}
+
+/* ------------------------------------------------------------------*/
+
+/* table grid */
+.search {
+	width: 100%;
+	border: 1px solid #BFBFBF;
+	border-spacing: 0;
+	border-collapse: collapse;
+}
+
+.search tr {
+	
+}
+
+.search th {
+	width: 80px;
+	padding: 5px;
+	background-color: #F8F8F8;
+}
+
+.search td {
+	padding: 5px;
+}
+
+/* ------------------------------------------------------------------*/
+/* button */
+.button {
+	height: 25px;
+	width: 70px;
+	border: none;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 12px;
+	border-radius: 3px;
+	cursor: pointer;
+}
+
+.button100 {
+	height: 25px;
+	width: 100px;
+	border: none;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 12px;
+	border-radius: 3px;
+	cursor: pointer;
+}
+
+.button150 {
+	height: 25px;
+	width: 150px;
+	border: none;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 12px;
+	border-radius: 3px;
+	cursor: pointer;
+}
+
+.color_main {
+	color: white;
+	background-color: #3676C5;
+}
+
+.color_menu {
+	color: #D9D9D9;
+	background-color: #4A545F;
+}
+
+.color_sub {
+	color: white;
+	background-color: #4A545F;
+}
+
+.color_sub2 {
+	color: white;
+	background-color: #B97A57;
+}
+
+.color_sub3 {
+	color: #4A545F;
+	background-color: #FFE5D4;
+	border: 1px solid #F8A1A4;
+	border-radius: 3px;
+}
+
+/* input */
+a {
+	color: #4A545F;
+	font-family: 'D2Coding';
+}
+
+a:focus, a:hover, a:active {
+	color: #333333;
+	font-family: 'D2Coding';
+}
+
+input {
+	height: 25px;
+	border: 1px solid #999999;
+	border-radius: 3px;
+	font-family: 'D2Coding';
+	font-size: 13px;
+}
+
+select {
+	height: 25px;
+	border: 1px solid #999999;
+	border-radius: 3px;
+	font-family: 'D2Coding';
+	font-size: 13px;
+}
+
+textarea {
+	border: 1px solid #999999;
+	border-radius: 3px;
+	font-family: 'D2Coding';
+	font-size: 13px;
+}
+/* ------------------------------------------------------------------*/

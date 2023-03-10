@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jincomp.jintest.web.jin.mapper.UserMapper">
+
+	<select id="getUserList" resultType="com.jincomp.jintest.web.jin.vo.UserVO">
+    SELECT EMP_NO,
+	       BIRTH_DATE,
+	       NAME,
+	       GENDER,
+	       HIRE_DATE
+	FROM EMPLOYEES;
+    </select>
+
+	<select id="getSearchUserList" resultType="com.jincomp.jintest.web.jin.vo.UserVO">
+    SELECT EMP_NO,
+	       BIRTH_DATE,
+	       NAME,
+	       GENDER,
+	       HIRE_DATE
+	FROM EMPLOYEES
+	where ${condition} like concat('%', #{input}, '%');
+	</select>
+	
+	<insert id="addUser" parameterType="com.jincomp.jintest.web.jin.vo.UserVO">
+		insert into employees(emp_no, birth_date, name, gender, hire_date)
+		values(#{empNo}, #{birthDate}, #{name}, #{gender}, #{hireDate})
+	</insert>
+	
+	<update id="updateUser" parameterType="com.jincomp.jintest.web.jin.vo.UserVO">
+		update employees
+		set name = #{name},
+			birth_date = #{birthDate},
+			gender = #{gender},
+			hire_date = #{hireDate}
+		where emp_no = #{empNo}; 
+	</update>
+	
+	<delete id="deleteUser">
+	DELETE from EMPLOYEES
+	WHERE 
+		<foreach collection="empNo" item="empNo" separator="or" index="index">
+			EMP_NO = #{empNo}
+		</foreach>
+	</delete>
+
+</mapper>

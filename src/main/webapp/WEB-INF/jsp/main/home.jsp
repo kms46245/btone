@@ -83,29 +83,35 @@ function checkBoxEvent(){
 function addUser() {
 	const numChk = /[0-9]/g;
 	
-	if($('#addName') && $('#addBirthDate') && $('input[name=addGender]')) {
-		if($('#addBirthDate').val().length == 8 && numChk.test($('#addBirthDate').val())){
-			var emp = {
-                    name: $('#addName').val(),
-                    birthDate: $('#addBirthDate').val(),
-                    gender: $('input:radio[name="addGender"]:checked').val()
-            };
-			
-			$.ajax({
-				url : "main/addUser.do",
-				type : "post",
-				contentType: 'application/json',
-				data : JSON.stringify(emp),
-				success : function() {
-					location.reload();
-				},
-				error : function(xhr, status, error) {
-					alert("에러발생");
-				}
-			});
+	if($('#addName').val().length > 0) {	// 이름 입력 여부
+		if($('input[name=addGender]').is(":checked")) {	// 성별 선택 여부
+			if($('#addBirthDate') && $('#addBirthDate').val().length == 8 && numChk.test($('#addBirthDate').val())){
+				var emp = {
+	                    name: $('#addName').val(),
+	                    birthDate: $('#addBirthDate').val(),
+	                    gender: $('input:radio[name="addGender"]:checked').val()
+	            };
+				
+				$.ajax({
+					url : "main/addUser.do",
+					type : "post",
+					contentType: 'application/json',
+					data : JSON.stringify(emp),
+					success : function() {
+						location.reload();
+					},
+					error : function(xhr, status, error) {
+						alert("에러발생");
+					}
+				});
+			} else {
+				alert("생년월일은 숫자로 8자리 입니다.");						
+			}	
 		} else {
-			alert("생년월일은 숫자로 8자리 입니다.");						
+			alert("성별을 선택해주세요.")
 		}
+	} else {
+		alert("이름을 입력해주세요.");
 	}
 }
 </script>
@@ -136,13 +142,12 @@ function delUser() {
 
 <script>
 function updateUser() {
-	<!-- 예외처리) 수정할 모든값이 들어있는지 확인 후, 날짜관련해 형식과 길이를 맞췄는지 체크 -->
 	const numChk = /[0-9]/g;
 	
-	if($('#updateName') && $('#updateBirthDate') 
-			&& $('input[name=updateGender]') && $('#updateHireDate')) {
-		if($('#updateBirthDate').val().length == 8 && numChk.test($('#updateBirthDate').val())){
-			if($('#updateHireDate').val().length == 8 && numChk.test($('#updateHireDate').val())) {
+	if($('#updateName').val().length > 0 && $('#updateBirthDate').val().length > 0 &&
+			$('input[name=updateGender]').val().length > 0 && $('#updateHireDate').val().length > 0 ) {	<!-- 수정값 존재 여부 -->
+		if($('#updateBirthDate').val().length == 8 && numChk.test($('#updateBirthDate').val())){	<!-- 생년월일 유효성 검사-->
+			if($('#updateHireDate').val().length == 8 && numChk.test($('#updateHireDate').val())) {	<!-- 입사일 유효성 검사 -->
 				var updateEmp = {
 						empNo: $("#updateEmpNo").val(),
 	                    name: $('#updateName').val(),
@@ -167,7 +172,7 @@ function updateUser() {
 					alert("입사일자는 yyyyMMdd형식의 숫자 8자리 입니다.")
 			}
 		} else {
-			alert("생는 yyyyMMdd형식의 숫자 8자리 입니다.");						
+			alert("생년월일은 yyyyMMdd형식의 숫자 8자리 입니다.");						
 		}
 	} else {
 		alert("수정할 이름, 생년월일, 성별, 입사일자를 모두 입력해주세요.")

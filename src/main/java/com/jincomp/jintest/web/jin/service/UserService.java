@@ -81,8 +81,16 @@ public class UserService {
 		userMapper.addUser(emp);
 	}
 	
-	public void updateUser(UserVO updateEmp) {
+	public int updateUser(UserVO updateEmp) {
 		logger.debug("updateUser 진입");
-		userMapper.updateUser(updateEmp);
+		List<UserVO> targetEmp = userMapper.getSearchUserList("emp_no", updateEmp.getEmpNo());
+		if(targetEmp.get(0).equals(updateEmp)) {
+			logger.debug("--------업데이트정보가 기존 정보와 차이없는 경우");
+			return 0;
+		}
+		else {
+			logger.debug("--------업데이트정보가 기존 정보와 다를 경우");
+			return userMapper.updateUser(updateEmp);
+		}
 	}
 }

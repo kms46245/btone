@@ -173,7 +173,10 @@ function updateUser() {
 					type : "post",
 					contentType: 'application/json',
 					data : JSON.stringify(updateEmp),
-					success : function() {
+					success : function(data) {
+						if(data == 0) {
+							alert("수정 된 사항이 없습니다.");
+						}
 						location.reload();
 					},
 					error : function(xhr, status, error) {
@@ -378,20 +381,16 @@ function searchDetail() {
 									</div>
 								</div>
 								<div class="div_update">
-									<input type="text" id="updateEmpNo"
-									 placeholder="사번" onchange="updateInputEvent();" readonly/>
-									<input type="text" id="updateName" 
-									 placeholder="이름" onchange="updateInputEvent();" />
-							    	<input type="text" id="updateBirthDate"
-							    	 placeholder="생년월일" onchange="updateInputEvent();" />
-							    	성별<input type="radio" id="updateMale" name="updateGender"
-							    		 value="M" onchange="updateInputEvent();"/>
-									   <label for="updateMale">남</label>
-									   <input type="radio" id="updateFemale" name="updateGender" 
-									   	 value="F" onchange="updateInputEvent();"/>
-									   <label for="updateFemale">여</label>
-							    	<input type="text" id="updateHireDate" 
-							    	placeholder="입사일" onchange="updateInputEvent();"/>
+									<fieldset onchange="updateInputEvent();">
+										<input type="text" id="updateEmpNo" placeholder="사번" readonly/>
+										<input type="text" id="updateName"  placeholder="이름" />
+								    	<input type="text" id="updateBirthDate" placeholder="생년월일" />
+								    	성별<input type="radio" id="updateMale" name="updateGender" value="M"/>
+										   <label for="updateMale">남</label>
+										   <input type="radio" id="updateFemale" name="updateGender" value="F"/>
+										   <label for="updateFemale">여</label>
+								    	<input type="text" id="updateHireDate" placeholder="입사일"/>
+									</fieldset>
 								</div>
 							</div>
 						</div>

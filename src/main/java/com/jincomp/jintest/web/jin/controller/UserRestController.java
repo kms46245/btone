@@ -49,11 +49,11 @@ public class UserRestController {
    }
    
    @RequestMapping(value = "/updateUser.do")
-   public void updateUser(@RequestBody UserVO updateEmp, HttpServletRequest request, HttpServletResponse response) throws Exception {
+   public int updateUser(@RequestBody UserVO updateEmp, HttpServletRequest request, HttpServletResponse response) throws Exception {
 	   
 	   logger.debug("updateEmp : {}", updateEmp);
 	   
-	   userService.updateUser(updateEmp);
+	   return userService.updateUser(updateEmp);
 	    
    }
    

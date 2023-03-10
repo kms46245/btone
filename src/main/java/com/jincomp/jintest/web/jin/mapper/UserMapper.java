@@ -14,6 +14,6 @@ public interface UserMapper {
 	List<UserVO> getSearchUserList(@Param("condition") String condition,
 									@Param("input") String input);
 	void addUser(UserVO emp);
-	void updateUser(UserVO updateEmp);
+	int updateUser(UserVO updateEmp);
 	void deleteUser(@Param("empNo") List<Integer> empNo);
 }

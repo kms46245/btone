@@ -22,6 +22,10 @@
 		$("#tabs").tabs();
 
 		$("#tabs1-tabs").tabs();
+		
+		$("#tabs2-tabs").tabs();
+		
+		$("#tabs3-tabs").tabs();
 
 		radioClickEvent();
 		thClickEvent();
@@ -70,6 +74,13 @@ function radioClickEvent() {
 </script>
 	
 <script>
+function updateInputEvent() {
+	$("#updateBtn").attr("disabled", false);
+	$("#updateBtn").attr("class", "button color_sub");	<!-- 값 변경시, 버튼 색 바뀌도록-->
+	
+}
+</script>
+<script>
 function checkBoxEvent(){
 	$("#tableBody tr").each(function () {
 		if($(this).find('input:checkbox[name="check"]').is(":checked")) {	//tr에서 하위디렉토리의 체크박스가 체크되었다면 해당 tr 삭제																
@@ -98,7 +109,8 @@ function addUser() {
 					contentType: 'application/json',
 					data : JSON.stringify(emp),
 					success : function() {
-						location.reload();
+						alert("사원 추가 완료");
+						location.reload();	<!--다시불러오는과정에서 조회탭으로 돌아간다 -->
 					},
 					error : function(xhr, status, error) {
 						alert("에러발생");
@@ -268,6 +280,7 @@ function searchDetail() {
 							<td>
 								<ul>
 									<li><a href="#tabsUserList">조회</a></li>
+									<li><a href="#tabsUserAdd">사원 추가</a></li>
 									<li><a href="#tabsLogin">로그인</a></li>
 								</ul>
 							</td>
@@ -285,7 +298,7 @@ function searchDetail() {
 					<input type="hidden" id="searchTriggerName"
 						name="searchTriggerName" />
 
-					<div class="content" style="overflow:scroll;">
+					<div class="content">
 						<div class="">
 							<div class="layout">
 								<div class="div_select">
@@ -302,30 +315,33 @@ function searchDetail() {
 									</button>
 									<button class="button color_sub" onclick="searchDetail();">상세조회
 									</button>
-									<button class="button color_sub2" onclick="checkBoxEvent();">숨기기
-									</button>
+								</div>
+								<div class="div_showAndHide">
 									<input type="radio" id="all" name="gender" value="A" />
 									<label for="all">전체</label> 
 									<input type="radio" id="male"name="gender" value="M" />
 									<label for="male">남</label>
 									<input type="radio" id="female" name="gender" value="F" />
 									<label for="female">여</label>
+									<button class="button color_sub2" onclick="checkBoxEvent();">숨기기
+									</button>
 								</div>
-								<div class="div_add" style="display:inline-block;">
-									<input type="text" id="addName" placeholder="이름"/>
+								<div class="div_crud">
+									<!-- <input type="text" id="addName" placeholder="이름"/>
 							    	<input type="text" id="addBirthDate" placeholder="생년월일"/>
 							    	성별<input type="radio" id="addMale" name="addGender" value="M" />
 									   <label for="addMale">남</label>
 									   <input type="radio" id="addFemale" name="addGender" value="F" />
 									   <label for="addFemale">여</label>
-								<button class="button color_sub" onclick="addUser();">추가</button>
+								<button class="button color_sub" onclick="addUser();">추가</button> -->
 								<button class="button color_sub2" onclick="delUser();">삭제</button>
-								<button class="button color_sub" onclick="updateUser();">수정</button>
+								<button class="button color_sub2" id='updateBtn'
+										disabled="disabled" onclick="updateUser();">수정</button>
 								</div>
 							</div>
 							<div class="layout">
-								<div class="fixedTable" style="overflow-x:hidden; height:500px">
-									<div class="fixedBox">
+								<div class="fixedTable">
+									<div class="fixedBox" style="overflow-x:hidden; height:500px">
 										<table>
 											<thead id="tableHead">
 												<tr>
@@ -362,14 +378,20 @@ function searchDetail() {
 									</div>
 								</div>
 								<div class="div_update">
-									<input type="text" id="updateEmpNo" placeholder="사번" readonly/>
-									<input type="text" id="updateName" placeholder="이름" />
-							    	<input type="text" id="updateBirthDate" placeholder="생년월일" />
-							    	성별<input type="radio" id="updateMale" name="updateGender" value="M"/>
+									<input type="text" id="updateEmpNo"
+									 placeholder="사번" onchange="updateInputEvent();" readonly/>
+									<input type="text" id="updateName" 
+									 placeholder="이름" onchange="updateInputEvent();" />
+							    	<input type="text" id="updateBirthDate"
+							    	 placeholder="생년월일" onchange="updateInputEvent();" />
+							    	성별<input type="radio" id="updateMale" name="updateGender"
+							    		 value="M" onchange="updateInputEvent();"/>
 									   <label for="updateMale">남</label>
-									   <input type="radio" id="updateFemale" name="updateGender" value="F"/>
+									   <input type="radio" id="updateFemale" name="updateGender" 
+									   	 value="F" onchange="updateInputEvent();"/>
 									   <label for="updateFemale">여</label>
-							    	<input type="text" id="updateHireDate" placeholder="입사일" />
+							    	<input type="text" id="updateHireDate" 
+							    	placeholder="입사일" onchange="updateInputEvent();"/>
 								</div>
 							</div>
 						</div>
@@ -380,7 +402,7 @@ function searchDetail() {
 
 			<!-- tab2 -->
 			<div id="tabsLogin">
-				<form id="tabs6-frm" name="tabs6-frm" method="post"
+				<form id="tabs2-frm" name="tabs2-frm" method="post"
 					onSubmit="return false;">
 					<div class="content">
 						<table>
@@ -405,7 +427,38 @@ function searchDetail() {
 				</form>
 			</div>
 			<!-- // tabs3 -->
-
+			<div id='tabsUserAdd'>
+				<form id="tabs3-frm" name="tabs3-frm" method="post"
+					onSubmit="return false;">
+					<div class="content">
+						<div class="div_add" style="display:inline-block;">
+							<table>
+								<tr>
+									<th width='100px' style="text-align: left"> 사원명</th>
+									<td width='200px'> <input type="text" id="addName" placeholder="이름"/> </td>
+						    	</tr>
+						    	<tr>
+						    		<th width='100px' style="text-align: left">생년월일</th>
+						    		<td width='200px'><input type="text" id="addBirthDate" placeholder="생년월일"/></td>
+						    	</tr>
+						    	<tr>
+						    		<th width='100px' style="text-align: left">성별</th>
+						    		<td>
+							    		<input type="radio" id="addMale" name="addGender" value="M" />
+									   	<label for="addMale">남</label>
+									   	<input type="radio" id="addFemale" name="addGender" value="F" />
+									   	<label for="addFemale">여</label>
+						    		</td>
+						    		<td width='200px'>
+						    			<button class="button color_sub" onclick="addUser();">추가</button>
+						    		</td>
+						    	</tr>	
+							</table>
+						</div>
+					</div>
+				</form>
+			
+			</div>
 			<!-- tabs4 -->
 			<!-- tabs6 -->
 

@@ -138,17 +138,20 @@ function delUser() {
 	});
 	var res = {"empNoList" : temp};
 	
-	$.ajax({
-		url : "main/delUser.do",
-		type : "post",
-		data : res,
-		success : function() {
-			location.reload();
-		},
-		error : function(xhr, status, error) {
-			alert("에러발생");
-		}
-	});
+	var delOk = confirm("삭제 하시겠습니까?");
+	if(delOk){
+		$.ajax({
+			url : "main/delUser.do",
+			type : "post",
+			data : res,
+			success : function() {
+				location.reload();
+			},
+			error : function(xhr, status, error) {
+				alert("에러발생");
+			}
+		});
+	}
 }
 </script>
 
@@ -199,11 +202,6 @@ function updateUser() {
 <script>
 //임시 테이블 조회   //EMPLOYEES  이걸로 고정
 function fn_search() {
-
-	var frmData = $("#tabs1-frm").serializeArray();
-	
-	//console.log(JSON.stringify(condition));
-	
 	$.ajax({
 		url : "main/getUser.do",
 		type : "post",
@@ -327,20 +325,19 @@ function searchDetail() {
 									<input type="radio" id="female" name="gender" value="F" />
 									<label for="female">여</label>
 									<button class="button color_sub2" onclick="checkBoxEvent();">숨기기
-									</button>
+									</button>								
+									<button class="button color_sub2" onclick="delUser();">삭제</button>
 								</div>
-								<div class="div_crud">
-									<!-- <input type="text" id="addName" placeholder="이름"/>
-							    	<input type="text" id="addBirthDate" placeholder="생년월일"/>
-							    	성별<input type="radio" id="addMale" name="addGender" value="M" />
-									   <label for="addMale">남</label>
-									   <input type="radio" id="addFemale" name="addGender" value="F" />
-									   <label for="addFemale">여</label>
-								<button class="button color_sub" onclick="addUser();">추가</button> -->
-								<button class="button color_sub2" onclick="delUser();">삭제</button>
-								<button class="button color_sub2" id='updateBtn'
-										disabled="disabled" onclick="updateUser();">수정</button>
-								</div>
+							<!--<div class="div_crud">
+									<input type="text" id="addName" placeholder="이름"/>
+						    		<input type="text" id="addBirthDate" placeholder="생년월일"/>
+						    		성별<input type="radio" id="addMale" name="addGender" value="M" />
+								   	<label for="addMale">남</label>
+								   	<input type="radio" id="addFemale" name="addGender" value="F" />
+								   	<label for="addFemale">여</label>
+									<button class="button color_sub" onclick="addUser();">추가</button>
+									<button class="button color_sub2" onclick="delUser();">삭제</button>
+								</div> -->
 							</div>
 							<div class="layout">
 								<div class="fixedTable">
@@ -390,6 +387,8 @@ function searchDetail() {
 										   <input type="radio" id="updateFemale" name="updateGender" value="F"/>
 										   <label for="updateFemale">여</label>
 								    	<input type="text" id="updateHireDate" placeholder="입사일"/>
+								    	<button class="button color_sub2" id='updateBtn'
+											disabled="disabled" onclick="updateUser();">수정</button>
 									</fieldset>
 								</div>
 							</div>

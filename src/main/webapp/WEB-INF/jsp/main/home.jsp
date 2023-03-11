@@ -34,8 +34,12 @@
 
 <script>
 function thClickEvent() {
+	
 	$("#tableBody tr").each(function() {
 		$(this).click(function() {
+			$("#updateBtn").attr("disabled", true);
+			$("#updateBtn").attr("class", "button color_sub2");
+			
 			$("#updateEmpNo").val($(this).children().eq(2).text());
 			$("#updateName").val($(this).children().eq(4).text());
 			$("#updateBirthDate").val($(this).children().eq(3).text());
@@ -77,9 +81,10 @@ function radioClickEvent() {
 function updateInputEvent() {
 	$("#updateBtn").attr("disabled", false);
 	$("#updateBtn").attr("class", "button color_sub");	<!-- 값 변경시, 버튼 색 바뀌도록-->
-	
+
 }
 </script>
+
 <script>
 function checkBoxEvent(){
 	$("#tableBody tr").each(function () {
@@ -378,7 +383,7 @@ function searchDetail() {
 									</div>
 								</div>
 								<div class="div_update">
-									<fieldset onchange="updateInputEvent();">
+									<fieldset onchange="updateInputEvent();" style="border: none">
 										<input type="text" id="updateEmpNo" placeholder="사번" readonly/>
 										<input type="text" id="updateName"  placeholder="이름" />
 								    	<input type="text" id="updateBirthDate" placeholder="생년월일" />

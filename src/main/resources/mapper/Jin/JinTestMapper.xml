@@ -42,5 +42,18 @@
 			EMP_NO = #{empNo}
 		</foreach>
 	</delete>
-
+	
+	<select id="getLoginUsers" resultType="com.jincomp.jintest.web.jin.vo.UserLoginVO">
+    SELECT user_no,
+	       user_name,
+	       user_id,
+	       user_password,
+	       user_address
+	FROM user_login;
+    </select>
+    
+    <insert id="addLoginUser" parameterType="com.jincomp.jintest.web.jin.vo.UserLoginVO">
+		insert into user_login(user_no, user_name, user_id, user_password)
+		values(edu.nextval("next_seq"), #{userName}, #{userId}, #{userPassword})
+	</insert>
 </mapper>

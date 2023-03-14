@@ -274,6 +274,43 @@ function searchDetail() {
 }
 </script>
 
+
+<!-- 로그인 파트 -->
+<script>
+function fn_login() {
+	
+	var loginUser = {
+				"userName" : $("#userName").val(),
+				"userId" : $("#userId").val(),
+				"userPassword" : $("#password").val()
+			};
+	
+	$.ajax({
+		url : "main/addLoginUser/" + $("#userId").val() + ".do",
+		type : "post",
+		contentType: 'application/json',
+		data : JSON.stringify(loginUser),
+		success : function(data) {
+			// 100 - ID중복 / 101 - 암호 조건 미충족
+			if(data == 100) {
+				alert("해당 ID는 이미 존재하는 ID입니다.");
+			} else if(data == 101) {
+				alert("암호는 영소문자, 숫자, 특수문자(!,@,#,$,%,^,&,*)를 1자 이상 포함해야합니다.");
+			} else {
+				location.reload();
+				location.href = "/#tabsLoginUserList";
+			}
+		},
+		error : function(xhr, status, error) {
+			alert("통신 오류");
+		}
+	});
+}
+
+<!-- alert("사용자 추가 완료"); location.reload(); -->
+<!-- alert("에러발생"); -->
+</script>
+
 </head>
 <body>
 	<div class="container">
@@ -287,7 +324,8 @@ function searchDetail() {
 								<ul>
 									<li><a href="#tabsUserList">조회</a></li>
 									<li><a href="#tabsUserAdd">사원 추가</a></li>
-									<li><a href="#tabsLogin">로그인</a></li>
+									<li><a href="#tabsLogin">회원가입</a></li>
+									<li><a href="#tabsLoginUserList">유저 조회</a>
 								</ul>
 							</td>
 						</tr>
@@ -411,18 +449,23 @@ function searchDetail() {
 						<table>
 							<tr>
 								<th width='100px'>아이디</th>
-								<td width='200px'><input type="text" id="username"
-									name="username" style="width: 200px;" value="kss" /></td>
+								<td width='200px'><input type="text" id="userId"
+									name="userId" style="width: 200px;" placeholder="ID" /></td>
+							</tr>
+							<tr>
+								<th width='100px'>이름</th>
+								<td width='200px'><input type="text" id="userName"
+									name="userName" style="width: 200px;" placeholder="NAME" /></td>
 							</tr>
 							<tr>
 								<th width='100px'>비밀번호</th>
-								<td width='200px'><input type="text" id="password"
-									name="password" style="width: 200px;" value="1" /></td>
+								<td width='200px'><input type="password" id="password"
+									name="password" style="width: 200px;" placeholder="PW" /></td>
 							</tr>
 							<tr>
 								<th width='100px' colspan="2">
 									<button class="button color_sub"
-										onclick="javascript:fn_login();">로그인</button>
+										onclick="fn_login();">회원가입</button>
 								</th>
 							</tr>
 						</table>
@@ -463,11 +506,37 @@ function searchDetail() {
 			
 			</div>
 			<!-- tabs4 -->
+			<div id="tabsLoginUserList">
+				<div class="layout">
+					<div class="fixedTable">
+						<div class="fixedBox" style="overflow-x:hidden; height:500px">
+							<table>
+								<thead id="tableHead">
+									<tr>
+										<th width='20px'>No</th>
+										<th width='55px'>ID</th>
+										<th width='55px'>이름</th>
+										<th width='70px'>비밀번호</th>
+									</tr>
+								</thead>
+								<tbody class="table" id="tableBody2">
+									<c:forEach var="item" items="${loginList}" varStatus="status">
+										<tr>
+											<th width='20px'>${item.userNo}</th>
+											<th width='55px'>${item.userId}</th>
+											<th width='55px'>${item.userName}</th>
+											<th width='70px'>${item.userPassword}</th>
+										</tr>
+									</c:forEach>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
 			<!-- tabs6 -->
 
 			<!-- // tabs6 -->
-
-
 		</div>
 	</div>
 

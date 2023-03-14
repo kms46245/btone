@@ -5,6 +5,8 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
+
 import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -292,5 +294,11 @@ public class Utils {
         }
 
         return result.toString().toUpperCase();
+    }
+    
+    public static boolean passwordRegex(String str) {
+		String pwRegex = "^(?=.*[0-9])(?=.*[a-z])(?=.*[!@#$%^&*])[a-z0-9$@!%*#?&]*$";	// 영소문자, 숫자, 특수문자 1자이상 포함하는 정규식
+		
+		return Pattern.matches(pwRegex, str);
     }
 }

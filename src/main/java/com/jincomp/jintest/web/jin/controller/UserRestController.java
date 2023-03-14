@@ -7,12 +7,14 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.jincomp.jintest.web.jin.service.UserService;
+import com.jincomp.jintest.web.jin.vo.UserLoginVO;
 import com.jincomp.jintest.web.jin.vo.UserVO;
 
 import lombok.RequiredArgsConstructor;
@@ -66,5 +68,13 @@ public class UserRestController {
 	  userService.deleteUser(empNoList);  
    }
    
+   @RequestMapping(value = "/addLoginUser/{userId}.do")
+   public int addLoginUser(@PathVariable String userId,
+		   					@RequestBody UserLoginVO loginUser,
+		   					HttpServletRequest request, HttpServletResponse response) {
+	    logger.debug("loginUser = {}" , loginUser);
+	    
+	    return userService.addLoginUser(loginUser);
+   }
    
 }

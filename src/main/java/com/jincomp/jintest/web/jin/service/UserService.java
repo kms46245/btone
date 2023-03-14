@@ -9,7 +9,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import com.common.Base64Utils;
+import com.common.Utils;
 import com.jincomp.jintest.web.jin.mapper.UserMapper;
+import com.jincomp.jintest.web.jin.vo.UserLoginVO;
 import com.jincomp.jintest.web.jin.vo.UserVO;
 
 import lombok.RequiredArgsConstructor;
@@ -36,16 +39,6 @@ public class UserService {
 		} else {
 			return userMapper.getUserList();
 		}
-	}
-	
-	public void deleteUser(List<String> empNo){
-		logger.debug("delUser 진입");
-		List<Integer> tmp = new ArrayList<>();
-		for(String num : empNo) {
-			tmp.add(Integer.parseInt(num));		// 스트링형을 int형으로 변환하여 리스트를 생성
-		}
-		logger.debug("intList", tmp);
- 		userMapper.deleteUser(tmp);
 	}
 	
 	public void addUser(UserVO emp) {
@@ -93,4 +86,58 @@ public class UserService {
 			return userMapper.updateUser(updateEmp);
 		}
 	}
+	
+	public void deleteUser(List<String> empNo){
+		logger.debug("delUser 진입");
+		List<Integer> tmp = new ArrayList<>();
+		for(String num : empNo) {
+			tmp.add(Integer.parseInt(num));		// 스트링형을 int형으로 변환하여 리스트를 생성
+		}
+		logger.debug("intList", tmp);
+ 		userMapper.deleteUser(tmp);
+	}
+		
+	public List<UserLoginVO> getLoginUserList() {
+		return userMapper.getLoginUsers();
+	};
+	
+	public int addLoginUser(UserLoginVO userLogin) {
+		List<UserLoginVO>loginUserList = userMapper.getLoginUsers();	// db LoginUser의 전체목록
+		String targetId = userLogin.getUserId();		// 비교할(입력 할) 대상의 ID
+		
+		// 아이디 중복 여부 체크
+		for(UserLoginVO tmp : loginUserList) {
+			if(tmp.getUserId().equals(targetId)) {
+				logger.debug("아이디가 중복입니다.");
+				return 100;		// 100 - 아이디가 중복이 있음
+			} 
+		}
+		
+		String password = userLogin.getUserPassword();
+		
+		if(!Utils.passwordRegex(password)) {
+			logger.debug("비밀번호 : {}", password);
+			logger.debug("조건에 해당하지않음");
+			return 101;			// 101 - 비밀번호 영소문자,특문,숫자1개 이상 존재하지않음
+			
+		} else {
+			// 비밀번호 암호화
+			String encPassword = Base64Utils.base64Encoder(password);
+
+			logger.debug("암호화 전 비밀번호 : {}  암호화 후 비밀번호 = {}", password, encPassword);
+			
+			logger.debug("로그인 유저 정보 : {}", userLogin);
+			userLogin.setUserPassword(encPassword);
+			
+			// 디코딩 테스트
+			/*
+			 * List<UserLoginVO> testUsers = userMapper.getLoginUsers(); for(UserLoginVO
+			 * user : testUsers) { logger.debug("복호화 테스트 : {} -> {}", user.getUserPassword()
+			 * ,Base64Utils.base64Decoder(user.getUserPassword())); }
+			 */
+			
+			return userMapper.addLoginUser(userLogin);
+		}
+	}
+	
 }

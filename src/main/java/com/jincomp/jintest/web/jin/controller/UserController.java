@@ -12,7 +12,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import com.common.Base64Utils;
 import com.jincomp.jintest.web.jin.service.UserService;
+import com.jincomp.jintest.web.jin.vo.UserLoginVO;
 import com.jincomp.jintest.web.jin.vo.UserVO;
 
 @Controller
@@ -23,13 +25,19 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
+	
 	@GetMapping("/")  // 처음 DOMAIN 주소로 접근시 jsp 호출용.
 	public String showFirstHome(HttpServletRequest request,
 		HttpServletResponse response, ModelMap model) throws Exception {
 		List<UserVO> list = userService.getSearchUserList("","");
+		List<UserLoginVO> loginList = userService.getLoginUserList();
+		for(UserLoginVO loginUser : loginList) {
+			loginUser.setUserPassword(Base64Utils.base64Decoder(loginUser.getUserPassword()));
+		}
 		
 		log.debug("list : {}", list);
 		
+		model.addAttribute("loginList", loginList);
 		model.addAttribute("list", list);
 		
 		return "/main/home";  //home.jsp 로 구성
